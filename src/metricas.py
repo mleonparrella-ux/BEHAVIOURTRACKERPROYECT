@@ -47,3 +47,27 @@ def calcular_promedio_uso(datos):
     promedio = total / len(datos)
     
     return promedio
+
+def calcular_uso_por_app(datos):
+    """
+    Calcula el tiempo total de uso por aplicación.
+
+    Parámetros:
+    datos (list): Lista de registros.
+
+    Retorna:
+    dict: {app: tiempo_total}
+    """
+
+    uso_apps = {}
+
+    for registro in datos:
+        app = registro["app"]
+        tiempo = registro["tiempo_uso"]
+
+        if app in uso_apps:
+            uso_apps[app] += tiempo
+        else:
+            uso_apps[app] = tiempo
+
+    return uso_apps
