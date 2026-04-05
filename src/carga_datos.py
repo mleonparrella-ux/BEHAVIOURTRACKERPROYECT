@@ -27,7 +27,7 @@ def parsear_linea(linea):
         }
     Raises
     ---
-    None: si la linea de archivo es vacia o no se puede convertir
+    ValueError: None. si la linea de archivo es vacia o no se puede convertir
     el dato 
     """
     linea = linea.strip()
@@ -81,8 +81,6 @@ def cargar_datos(ruta):
         for linea in lineas[inicio:]:
             if linea.strip() != "": #verifico q no sea una linea no vacia
                 registro = parsear_linea(linea)
-                if registro is not None:
-                    datos.append(registro)
-              
+                datos.append(registro)
 
     return datos
