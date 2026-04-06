@@ -6,7 +6,12 @@ Created on Sun Apr  5 15:36:24 2026
 """
 
 #código principal
-datos = cargar_datos(datos/datos_proyecto.csv)
+from carga_datos import cargar_datos
+from metricas import calcular_tiempo_total, calcular_promedio_uso, calcular_uso_por_app
+from procesamiento_datos import filtrar_por_participante
+from validacion_datos import validar_registro
+
+datos = cargar_datos("datos/datos_proyecto.csv")
 datos_validos = []
 for registro in datos:
 	if validar_registro(registro):
