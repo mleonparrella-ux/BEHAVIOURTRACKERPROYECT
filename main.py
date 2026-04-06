@@ -12,9 +12,9 @@ for registro in datos:
 	if validar_registro(registro):
 		datos_validos.append(registro)
 id_ingresado = int(input("Ingrese su dni: "))
-datos_por_participante = filtrar_participante(datos_validos, id_ingresado)
+datos_por_participante = filtrar_por_participante(datos_validos, id_ingresado)
 promedio_uso= calcular_promedio_uso(datos_por_participante)
-uso_por_por_app_app = calcular_uso_por_app(datos_por_participante)
-uso_total = calcular_uso_total(datos_por_participante)
+uso_por_app = calcular_uso_por_app(datos_por_participante)
+tiempo_total = calcular_tiempo_total(datos_por_participante)
 
-print(f" El promedio de uso es de: {promedio_uso}, El uso total es de: {uso_total}, El uso por app es: {uso_por_app}(todos los tiempos están evaluados en minutos)")
+print(f" El promedio de uso es de: {promedio_uso}, El tiempo total es de: {tiempo_total}, El uso por app es: {uso_por_app}(todos los tiempos están evaluados en minutos)")
