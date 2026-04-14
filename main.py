@@ -16,7 +16,7 @@ def main():
     
     datos = cargar_datos(BehaviorTracker_mock_data)
     datos_validos = []
-    if len(datos) != 0:
+    if len(datos) != 0: #readme: aseguro q no sean datos vacios
         for registro in datos:
             if validar_registro(registro):
                 datos_validos.append(registro)
