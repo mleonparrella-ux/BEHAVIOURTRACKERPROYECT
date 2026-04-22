@@ -8,9 +8,7 @@ def validar_registro(registro):
     Verifica que:
        - id_participante y  cantidad_uso: numeros enteros positivos y no nulos
        - tiempo_uso: numero positivo y no nulo
-       - fecha y app no  vacíos
-       - fecha tenga formato válido
-    
+       - fecha, app no vacías y válidas
 
     Parameteros
     ----------
@@ -41,10 +39,13 @@ def validar_registro(registro):
         if registro["id_participante"] <= 0: 
             raise ValueError(" El Id debe ser un número entero y positvo") 
         
-        if datetime.strptime(registro["fecha"], "%Y-%m-%d") == False:
-            raise ValueError ("Formato de fecha inválido. Formato esperado: ""AAAA-mm-dd")
+        if datetime.strptime(registro["fecha"], "%d-%m-$YY") == False:
+            raise ValueError ("Fecha inválida o con formato distinto a: dd-mm-AAAA") #fecha válida y con formato 
+        if registro["fecha"] > datetime.now():
+            raise ValueError("La fecha es futura")
         if registro["fecha"] == "":
             raise ValueError("El campo fecha es vacío")
+        
             
     return True
 
