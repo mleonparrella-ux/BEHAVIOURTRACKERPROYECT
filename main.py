@@ -12,13 +12,17 @@ from src.procesamiento_datos import filtrar_por_participante
 
 
 def main():
-    datos = []
-    with open("datos/BehaviorTracker_mock_data",  "r") as archivo:
-        lineas = archivo.readlines()
-        for linea in lineas:
-            datos = cargar_datos(linea,datos)
-            
-    datos_filtrados = filtrar_por_participante(datos)
+    
+    datos = cargar_datos()
+    
+    while True:
+        try:
+            id_buscar = int(input("Ingrese el dni del participante que desea filtrar: "))
+        except ValueError:
+            return ("No se pudo convertir el tipo de dato Id")
+        else:
+            break
+    datos_filtrados = filtrar_por_participante(datos, id_buscar)
         
  # calculo las métricas para los registros filtrados
     promedio_uso = calcular_promedio_uso(datos_filtrados)
