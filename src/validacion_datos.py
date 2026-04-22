@@ -23,7 +23,17 @@ def validar_registro(registro):
 
     """
     # Verificar que no haya campos vacíos
+    apps_validas = ["Twitter", "Instagram", "Facebook", "Tiktok", "Whatsapp"] 
     for valor in registro.values():
+        if app not in apps:
+            raise ValueError (f"App no valida: {app}. Opciones: {apps_validas}")
+
+        if cantidad_uso <= 0:
+            raise ValueError("Cantidad de uso debe ser un entero positivo")
+
+        if tiempo_uso <= 0:
+            raise ValueError("Tiempo de uso debe ser un numero positivo")
+    
         if valor == "": #para los strings (fecha y app)
             raise ValueError(" El campo fecha o app es vacío") #me lo dijo chat, aclarar en readme
             
