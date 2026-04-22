@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 
 def validar_registro(registro):
     """
@@ -7,8 +8,8 @@ def validar_registro(registro):
     Verifica que:
        - id_participante y  cantidad_uso: numeros enteros positivos y no nulos
        - tiempo_uso: numero positivo y no nulo
-       - app: str
-       - los datos (strings) no esten vacíos
+       - fecha y app no  vacíos
+       - fecha tenga formato válido
     
 
     Parameteros
@@ -24,32 +25,29 @@ def validar_registro(registro):
     """
     # Verificar que no haya campos vacíos
     apps_validas = ["Twitter", "Instagram", "Facebook", "Tiktok", "Whatsapp"] 
-    for valor in registro.values():
-        if app not in apps:
-            raise ValueError (f"App no valida: {app}. Opciones: {apps_validas}")
-
-        if cantidad_uso <= 0:
+    for valor in registro:
+        
+        if registro["app"] not in apps_validas:
+                raise ValueError (f"App no valida: {registro["app"]}. Opciones: {apps_validas}")
+        if registro["app"] == "":
+                raise ValueError (" El campo app es vacío")
+                
+        if registro["cantidad_uso"] <= 0:
             raise ValueError("Cantidad de uso debe ser un entero positivo")
-
-        if tiempo_uso <= 0:
+ 
+        if registro["tiempo_uso"] <= 0:
             raise ValueError("Tiempo de uso debe ser un numero positivo")
     
-        if valor == "": #para los strings (fecha y app)
-            raise ValueError(" El campo fecha o app es vacío") #me lo dijo chat, aclarar en readme
-            
-        # Verificar valores positivos
-            # y verificar dni de 8 dígitos
-        if (registro["id_participante"]) <= 0 or (len(str(registro["id_participante"])) != 8):
-            raise ValueError("El dni debe ser un número positivo de ocho dígitos")
-            
-        if registro["cantidad_uso"] <= 0:
-            raise ValueError("La cantidad de uso debe ser un número positivo")
-            
-        if registro["tiempo_uso"] <= 0:
-            raise ValueError("El tiempo de uso debe ser un número positivo")
-            
+        if registro["id_participante"] <= 0: 
+            raise ValueError(" El Id debe ser un número entero y positvo") 
+        
+        if datetime.strptime(registro["fecha"], "%Y-%m-%d") == False:
+            raise ValueError ("Formato de fecha inválido. Formato esperado: ""AAAA-mm-dd")
+        if registro["fecha"] == "":
+            raise ValueError("El campo fecha es vacío")
             
     return True
+
 
 
        
