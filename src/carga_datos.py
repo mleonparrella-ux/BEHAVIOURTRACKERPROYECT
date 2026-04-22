@@ -91,8 +91,8 @@ def cargar_datos(ruta):
                     if id_participante == dicc_participante["Id_participante"]:
                         dicc_participante["fecha"].append(lista_datos[1])
                         dicc_participante["app"].append(lista_datos[2])
-                        dicc_participante["tiempo_uso"].append(lista_datos[3])
-                        dicc_participante["cantidad_uso"].append(lista_datos[4])
+                        dicc_participante["tiempo_uso"].append(lista_datos[4])
+                        dicc_participante["cantidad_uso"].append(lista_datos[3])
                         encontrado = True 
                         break #corta la busqueda 
                     if not encontrado: #mas especifico q poner un else
@@ -100,8 +100,8 @@ def cargar_datos(ruta):
                         nuevo_dicc_participante["id_participante"] = lista_datos[0]
                         nuevo_dicc_participante["fecha"] = lista_datos[1]
                         nuevo_dicc_participante["app"] = lista_datos[2]
-                        nuevo_dicc_participante["tiempo_uso"] = lista_datos[3]
-                        nuevo_dicc_participante["cantidad_uso"] = lista_datos[4]
+                        nuevo_dicc_participante["tiempo_uso"] = lista_datos[4]
+                        nuevo_dicc_participante["cantidad_uso"] = lista_datos[3]
                         datos.append(nuevo_dicc_participante)
       
     return datos
