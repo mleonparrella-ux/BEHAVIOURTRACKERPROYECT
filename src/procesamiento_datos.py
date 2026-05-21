@@ -1,20 +1,19 @@
 def filtrar_por_participante(datos, id_buscar):
     """
-    Filtra los datos de un participante específico.
+    Filtra los datos de un participante específico usando Pandas.
 
     Parámetros:
-    datos (list): Lista de registros (diccionarios).
+    datos (pandas.Dataframe): DataFrame con todos los registros cargados.
     id_buscar (int): id del participante a filtrar
 
     Retorna:
-   -  registro (dicc) del participante con el mismo id
+   -  datos_filtrados (pandas.DataFRame): DataFrame con los datos correspondientes al id buscado 
   
     """
+   
+    datos_filtrados = datos[datos["id_participante"] == id_buscar]
 
-    for participante in datos:
-        if participante["id_participante"] == id_buscar:
-            return [participante]
-        else:
-            print("ID no encontrado. Intente nuevamente")
+    return datos_filtrados
+    
                    
        

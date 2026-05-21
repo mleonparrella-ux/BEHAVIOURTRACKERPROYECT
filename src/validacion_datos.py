@@ -23,31 +23,33 @@ def validar_registro(registro):
     """
     # Verificar que no haya campos vacíos
     apps_validas = ["Twitter", "Instagram", "Facebook", "Tiktok", "Whatsapp"] 
-    for valor in registro:
+    
         
-        if registro["app"] not in apps_validas:
-                raise ValueError (f"App no valida: {registro["app"]}. Opciones: {apps_validas}")
-        if registro["app"] == "":
+    if registro["app"] not in apps_validas:
+                raise ValueError (f"App no valida: {registro['app']}. Opciones: {apps_validas}")
+    if registro["app"] == "":
                 raise ValueError (" El campo app es vacío")
                 
-        if registro["cantidad_uso"] <= 0:
+    if registro["cantidad_uso"] <= 0:
             raise ValueError("Cantidad de uso debe ser un entero positivo")
  
-        if registro["tiempo_uso"] <= 0:
+    if registro["tiempo_uso"] <= 0:
             raise ValueError("Tiempo de uso debe ser un numero positivo")
     
-        if registro["id_participante"] <= 0: 
+    if registro["id_participante"] <= 0: 
             raise ValueError(" El Id debe ser un número entero y positvo") 
         
-        if datetime.strptime(registro["fecha"], "%d-%m-$YY") == False:
-            raise ValueError ("Fecha inválida o con formato distinto a: dd-mm-AAAA") #fecha válida y con formato 
-        if registro["fecha"] > datetime.now():
-            raise ValueError("La fecha es futura")
-        if registro["fecha"] == "":
+    if registro["fecha"] == "":
             raise ValueError("El campo fecha es vacío")
-        
+    try:
+        fecha_convertida = datetime.strptime(registro["fecha"], "%d-%m-%Y")
+    except ValueError:
+        raise ValueError("Fecha inválida o con formato distinto a dd-mm-AAAA.")
+
+    if fecha_convertida > datetime.now():
+        raise ValueError("La fecha es futura.")
             
-    return True
+    return registro
 
 
 

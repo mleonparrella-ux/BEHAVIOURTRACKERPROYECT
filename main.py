@@ -23,7 +23,9 @@ def main():
         else:
             break
     datos_filtrados = filtrar_por_participante(datos, id_buscar)
-        
+    if datos_filtrados.empty:
+            print("No se encontraron datos para ese participante.")
+           
  # calculo las métricas para los registros filtrados
     promedio_uso = calcular_promedio_uso(datos_filtrados)
     uso_por_app = calcular_uso_por_app(datos_filtrados)

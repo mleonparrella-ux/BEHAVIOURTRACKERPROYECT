@@ -7,21 +7,18 @@ Created on Fri Apr  3 16:35:45 2026
 
 def calcular_tiempo_total(datos):
     """
-    Recorre una lista de registros y suma todos los valores de tiempo de uso.
+    Calcula tiempo total de uso
 
     Parametros:
-        datos: list
-            Lista de registros 
+        datos: pandas.DataFrame
+            DataFrame con  registros 
             
     Return: float
-            Tiempo total
+            Suma total de la columna "tiempo_uso"
     """
-    contador = 0
+    tiempo_total = datos["tiempo_uso"].sum()
 
-    for tiempo_uso in datos: 
-        contador += tiempo_uso 
-
-    return contador 
+    return tiempo_total
 
 def calcular_promedio_uso(datos):
     """
@@ -29,8 +26,8 @@ def calcular_promedio_uso(datos):
 
     Parameters
     ----------
-    datos : list
-        Lista de registros.
+    datos : pandas.DataFrame
+        DataFrame con  registros.
 
     Returns
     -------
@@ -38,14 +35,9 @@ def calcular_promedio_uso(datos):
     """
     if len(datos) == 0:
         return 0
-    
-    total = 0
-    
-    for registro in datos:
-        total += registro["tiempos_uso"]
-        
-    promedio = total / len(datos)
-    
+
+    promedio = datos["tiempo_uso"].mean()
+
     return promedio
 
 def calcular_uso_por_app(datos):
@@ -53,21 +45,12 @@ def calcular_uso_por_app(datos):
     Calcula el tiempo total de uso por aplicación.
 
     Parámetros:
-    datos (list): Lista de registros.
+    datos (pandas.DataFRame): DataFrame  registros.
 
     Retorna:
-    dict: {app: tiempo_total}
+    uso_apps: pandas.Series
     """
 
-    uso_apps = {}
+    uso_por_app = datos.groupby("app")["tiempo_uso"].sum()
 
-    for registro in datos:
-        app = registro["app"]
-        tiempo = registro["tiempo_uso"]
-
-        if app in uso_apps:
-            uso_apps[app] += tiempo
-        else:
-            uso_apps[app] = tiempo
-
-    return uso_apps
+    return uso_por_app
