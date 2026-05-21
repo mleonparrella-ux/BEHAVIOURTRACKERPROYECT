@@ -5,7 +5,7 @@ Created on Thu May 21 15:19:49 2026
 @author: igarr
 """
 import matplotib.pyplot as plt
-def graficar_tiempo_por_app(uso_por_app, ruta_salida= "graficos/uso_por_app.png"):
+def graficar_tiempo_por_app(uso_por_app):
     """
     Genera y guarda un gráfico de barras con el tiempo de uso por aplicación.
 
@@ -32,5 +32,5 @@ def graficar_tiempo_por_app(uso_por_app, ruta_salida= "graficos/uso_por_app.png"
     plt.title("Tiempo total de uso por app")
     plt.xlabel("Aplicación")
     plt.ylabel("Tiempo de uso en minutos")
-    plt.savefig(ruta_salida)
+    plt.savefig("graficos/uso_por_app.png")
     plt.close()

@@ -1,56 +1,95 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
-
-def validar_registro(registro):
+import panda as pd
+def validar_datos(datos):
     """
-    Qué hace la función:
-    Verifica que:
-       - id_participante y  cantidad_uso: numeros enteros positivos y no nulos
-       - tiempo_uso: numero positivo y no nulo
-       - fecha, app no vacías y válidas
+    Valida un DataFrame con datos de uso de aplicaciones.
 
-    Parameteros
+    Qué hace la función:
+    1. Verifica que estén las columnas esperadas.
+    2. Verifica que no haya valores vacíos o nulos.
+    3. Verifica que los tipos de datos sean correctos.
+    4. Verifica que los valores numéricos sean positivos.
+    5. Verifica que las apps pertenezcan a las opciones válidas.
+
+    Parámetros
     ----------
-    registro: dicc
-    registro de un participante
+    datos : pandas.DataFrame
+        DataFrame con los datos cargados desde el archivo CSV.
 
     Retorna
     -------
-   - ValueError si es un dato inválido
-   - True: si los datos son todos válidos
+    pandas.DataFrame
+        El mismo DataFrame si supera todas las validaciones.
 
+    Errores
+    -------
+    ValueError
+        Si faltan columnas, hay datos vacíos, tipos incorrectos
+        o valores inválidos.
     """
-    # Verificar que no haya campos vacíos
-    apps_validas = ["Twitter", "Instagram", "Facebook", "Tiktok", "Whatsapp"] 
-    
+    columnas= [
+        "id_participante",
+        "fecha",
+        "app",
+        "cantidad_uso",
+        "tiempo_uso"
+    ]
+
+    if list(datos.columns) != columnas:
+        raise ValueError(f"El archivo debe tener estas columnas: {columnas}")
+
+    if datos.isna().any().any():
+        raise ValueError("El archivo contiene campos vacíos o valores nulos.")
+
+           #validar tiempo uso
+    if datos["tiempo_uso"].dtype not in ["float64", "int64"]:
+        raise ValueError("El tiempo_uso debe ser un número.")
+
+    if (datos["tiempo_uso"] <= 0).any():
+        raise ValueError("El tiempo_uso debe ser positivo.")
+   
+          #validar id
+    if (datos["id_participante"] <= 0).any():
+        raise ValueError("El id_participante debe ser positivo.")
         
-    if registro["app"] not in apps_validas:
-                raise ValueError (f"App no valida: {registro['app']}. Opciones: {apps_validas}")
-    if registro["app"] == "":
-                raise ValueError (" El campo app es vacío")
-                
-    if registro["cantidad_uso"] <= 0:
-            raise ValueError("Cantidad de uso debe ser un entero positivo")
+    if datos["id_participante"].dtype != "int64":
+        raise ValueError("El id_participante debe ser un número entero.")
+        
+         #validar cantidad uso
+    if (datos["cantidad_uso"] <= 0).any():
+        raise ValueError("La cantidad_uso debe ser positiva.")
+    if datos["cantidad_uso"].dtype != "int64":
+         raise ValueError("La cantidad_uso debe ser un número entero.")
+    
  
-    if registro["tiempo_uso"] <= 0:
-            raise ValueError("Tiempo de uso debe ser un numero positivo")
+        #validar app 
+    if datos["app"].dtype != "object":
+         raise ValueError("La app debe estar escrita como texto.")
+         
+    if (datos["app"].str.strip() == "").any():
+        raise ValueError("Hay campos vacíos en la columna app.")
+
+    apps_validas = ["twitter", "instagram", "facebook", "tiktok", "whatsapp"]
+
+    if not datos["app"].isin(apps_validas).all():
+        raise ValueError(f"Hay apps no válidas. Las opciones son: {apps_validas}")
     
-    if registro["id_participante"] <= 0: 
-            raise ValueError(" El Id debe ser un número entero y positvo") 
+        #validar fechas
         
-    if registro["fecha"] == "":
-            raise ValueError("El campo fecha es vacío")
-    try:
-        fecha_convertida = datetime.strptime(registro["fecha"], "%d-%m-%Y")
-    except ValueError:
-        raise ValueError("Fecha inválida o con formato distinto a dd-mm-AAAA.")
+    if datos["fecha"].dtype != "object":
+        raise ValueError("La fecha debe estar escrita como texto.")
+        
+    fechas_convertidas = pd.to_datetime(datos["fecha"], format="%d-%m-%Y")
 
-    if fecha_convertida > datetime.now():
-        raise ValueError("La fecha es futura.")
-            
-    return registro
+    if fechas_convertidas.isna().any():
+        raise ValueError("Hay fechas inválidas o con formato distinto a dd-mm-AAAA.")
 
-
-
+    if (fechas_convertidas > pd.Timestamp.today()).any():
+        raise ValueError("Hay fechas futuras en el archivo.")
        
+    if (datos["fecha"].str.strip() == "").any():
+        raise ValueError("Hay campos vacíos en la columna fecha.")
+
+    return datos
+
