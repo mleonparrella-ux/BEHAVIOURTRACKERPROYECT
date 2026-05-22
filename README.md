@@ -39,3 +39,6 @@ Para modelar este sistema utilizando objetos, pensamos en utilizar 3 clases, con
 	La incorporacion de pandas implico reescribir las partes del codigo relacionadas con la lectura del archivo, la validacion de datos, el procesamiento y el calculo de metricas.
 	En carga_datos.py, la funcion cargar_datos() reemplazo la lectura manual linea por linea por pd.read_csv(), eliminando la necesidad de parsear_linea(). El DataFrame resultante se envia directamente a validar_datos().
 	En validacion_datos.py, todas las validaciones se aplican sobre columnas enteras del DataFrame: se verifica que las columnas esperadas esten presentes, que no haya valores nulos, que los tipos de datos sean correctos, que los valores numericos sean positivos, que las apps pertenezcan a la lista valida y que las fechas tengan el formato de dd-mm-aaaa y no sean futuras. 
+
+En procesamiento_datos.py, la busqueda de un participante se simplifico a datos[datos["id_participante] == id_buscar]. En metricas.py, los calculos manuales fueron reemplazados por: .sum(), .mean() y .groupby().
+En cuanto a las clases, Registro dejo de tener sentido ya que cada fila del DataFrame cumple este rol. Participante y Sistema ahora trabajan directamente sobre DataFrames, y los diccionarios y listas de main.py fueron reemplazados por DataFrames. 
