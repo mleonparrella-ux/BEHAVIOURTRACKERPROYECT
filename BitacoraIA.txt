@@ -1,0 +1,29 @@
+# Bitácora de Uso de Inteligencia Artificial
+
+## Herramienta utilizada
+
+ChatGPT (OpenAI)
+
+## Fecha
+
+Junio 2026
+
+## Uso realizado
+
+Se utilizó IA como asistencia para:
+
+- Revisión de errores de sintaxis.
+- Corrección de imports.
+- Organización de la estructura del proyecto.
+- Generación de documentación.
+- Sugerencias.
+
+## Código generado automáticamente
+
+La IA colaboró en la creación y corrección de:
+
+- app.py
+
+## Validación
+
+Todo el código generado fue revisado, probado y adaptado por los integrantes del grupo antes de su entrega.

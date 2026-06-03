@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import panda as pd
+import pandas as pd
 def validar_datos(datos):
     """
     Valida un DataFrame con datos de uso de aplicaciones.
